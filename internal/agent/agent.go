@@ -14,6 +14,12 @@ import (
 )
 
 // Easter Egg
+//             _                   
+//  __ _  ___ | | __ _ _ __   __ _ 
+// / _` |/ _ \| |/ _` | '_ \ / _` |
+//| (_| | (_) | | (_| | | | | (_| |
+// \__, |\___/|_|\__,_|_| |_|\__, |
+// |___/                     |___/
 var (
 	ErrDivisionByZero  = errors.New("division by zero")
 	ErrInvalidOperator = errors.New("invalid operator")
