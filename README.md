@@ -1,0 +1,2 @@
+# YANDEX_GOLANG
+Task 2
