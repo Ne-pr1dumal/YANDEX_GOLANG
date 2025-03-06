@@ -22,34 +22,17 @@ Cервис для вычисления арифметических выраж�
     └── orchestrator
         └── orchestrator.go
 ```
+## Скачайте проект
+
+1. Склонируйте проект с GitHub
+    ```bash
+    git clone https://github.com/Ne-pr1dumal/Calculation-Service-Yandex
+    ```
+2. Перейдите в головную папку с проектом и запустите проект
+    ```bash
+    go run ./cmd/main.go
+    ```
 ## Запуск проекта
-## Обычный
-0. Перейти в **главную** папку проекта (YANDEX_GOLANG)
-1. Запуск orchestator`а
-
-```bash
-TIME_ADDITION_MS=200 TIME_SUBTRACTION_MS=200 TIME_MULTIPLICATIONS_MS=300 TIME_DIVISIONS_MS=400 go run cmd/orchestrator_start/main.go
-```
-
-**Ответ:**  Starting Orchestrator on port 8080.
-
-3. Запуск Agent`а (в новом окне терминала)
-
-```bash
-COMPUTING_POWER=4 ORCHESTRATOR_URL=http://localhost:8080 go run cmd/agent_start/main.go
-```
-
-**Ответ:**
-Starting Agent...
-Starting worker 0
-Starting worker 1
-Starting worker 2
-Starting worker 3
-
-4. Отправка запроса (в новом окне терминала)
-5. Кайфуем
-
-## Запуск через Docker
 
 0. Перейти в **главную** папку проекта (YANDEX_GOLANG)
 1. Вводим запрос для запуска сервисов
@@ -120,7 +103,7 @@ curl --location 'http://localhost:8080/api/v1/expressions/<id>'
 ```
 где ```<id>``` - это номер заявки
 
-# Примеры ошибок
+## Примеры ошибок
 
 **Ошибка на отсутствие выражения:**
 
@@ -141,6 +124,32 @@ curl --location 'http://localhost:8080/api/v1/expressions/<id>'
 ```bash
 { Worker n: error computing task 3: division by zero }
 ```
+## Также есть запуск без Docker
+### Обычный
+0. Перейти в **главную** папку проекта (YANDEX_GOLANG)
+1. Запуск orchestator`а
+
+```bash
+TIME_ADDITION_MS=200 TIME_SUBTRACTION_MS=200 TIME_MULTIPLICATIONS_MS=300 TIME_DIVISIONS_MS=400 go run cmd/orchestrator_start/main.go
+```
+
+**Ответ:**  Starting Orchestrator on port 8080.
+
+3. Запуск Agent`а (в новом окне терминала)
+
+```bash
+COMPUTING_POWER=4 ORCHESTRATOR_URL=http://localhost:8080 go run cmd/agent_start/main.go
+```
+
+**Ответ:**
+Starting Agent...
+Starting worker 0
+Starting worker 1
+Starting worker 2
+Starting worker 3
+
+4. Отправка запроса (в новом окне терминала)
+5. Кайфуем
 
 ## P. S.
 ```
