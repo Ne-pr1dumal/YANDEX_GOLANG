@@ -212,6 +212,10 @@ func NewOrchestrator() *Orchestrator {
 }
 
 func (o *Orchestrator) calculateHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
 	if r.Method != http.MethodPost {
 		http.Error(w, `{"error":"Method Not Allowed"}`, http.StatusMethodNotAllowed)
 		return
@@ -317,6 +321,10 @@ func (o *Orchestrator) monitorTasks() {
 }
 
 func (o *Orchestrator) taskHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
 	switch r.Method {
 	case http.MethodGet:
 		o.getTaskHandler(w, r)
@@ -328,6 +336,11 @@ func (o *Orchestrator) taskHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (o *Orchestrator) getTaskHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
+
 	o.mu.Lock()
 	defer o.mu.Unlock()
 
@@ -348,6 +361,11 @@ func (o *Orchestrator) getTaskHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (o *Orchestrator) postTaskHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
+
 	var req struct {
 		ID     string  `json:"id"`
 		Result float64 `json:"result"`
@@ -385,6 +403,10 @@ func (o *Orchestrator) postTaskHandler(w http.ResponseWriter, r *http.Request) {
 
 // Обработчики выражений
 func (o *Orchestrator) expressionsHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
 	if r.Method != http.MethodGet {
 		http.Error(w, `{"error":"Method Not Allowed"}`, http.StatusMethodNotAllowed)
 		return
@@ -406,7 +428,17 @@ func (o *Orchestrator) expressionsHandler(w http.ResponseWriter, r *http.Request
 	json.NewEncoder(w).Encode(map[string]interface{}{"expressions": exprs})
 }
 
+func enableCORS(w http.ResponseWriter) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+}
+
 func (o *Orchestrator) expressionIDHandler(w http.ResponseWriter, r *http.Request) {
+	enableCORS(w)
+	if r.Method == http.MethodOptions {
+		return
+	}
 	if r.Method != http.MethodGet {
 		http.Error(w, `{"error":"Method Not Allowed"}`, http.StatusMethodNotAllowed)
 		return
