@@ -86,7 +86,7 @@ http://localhost:3000
 7. Результат можно увидеть только при отправке нового выражения (F5 или CMD+R работать не будут)
 8. Кайфуем
 
-![Image](https://github.com/Ne-pr1dumal/YANDEX_GOLANG/blob/experemental/Снимок%20экрана%202025-03-06%20в%2018.58.11.png)
+![Image](https://github.com/Ne-pr1dumal/YANDEX_GOLANG/blob/main/Снимок%20экрана%202025-03-06%20в%2018.58.11.png)
 
 ## Запросы:
 
