@@ -19,6 +19,7 @@ Cервис для вычисления арифметических выраж�
         └── orchestrator.go
 ```
 ## Запуск проекта
+## Обычный
 0. Перейти в **главную** папку проекта (YANDEX_GOLANG)
 1. Запуск orchestator`а
 
@@ -42,6 +43,45 @@ Starting worker 2
 Starting worker 3
 
 4. Отправка запроса (в новом окне терминала)
+5. Кайфуем
+
+## Запуск через Docker
+
+0. Перейти в **главную** папку проекта (YANDEX_GOLANG)
+1. Вводим запрос для запуска сервисов
+```bash
+docker-compose up orchestrator agent
+```
+
+В терминале увидим:
+```
+Attaching to agent-1, orchestrator-1
+orchestrator-1  | 2025/03/06 08:41:26 Starting Orchestrator on port 8080
+agent-1         | 2025/03/06 08:41:32 Agent is Starting...
+agent-1         | 2025/03/06 08:41:32 Starting worker 0
+agent-1         | 2025/03/06 08:41:32 Starting worker 1
+agent-1         | 2025/03/06 08:41:32 Starting worker 2
+agent-1         | 2025/03/06 08:41:32 Starting worker 3
+```
+2. В новом терминале делаем http-запрос
+(Например)
+```
+curl --location 'http://localhost:8080/api/v1/calculate' \
+--header 'Content-Type: application/json' \
+--data '
+{
+  "expression": "2*2+2"
+}'
+```
+4. В окне с Docker`ом увидим
+```
+agent-1         | 2025/03/06 08:41:42 Worker 3: processing task 1: 2.000000 * 2.000000 (300 ms)
+agent-1         | 2025/03/06 08:41:42 Worker 3: successfully completed task 1 with result 4.000000
+agent-1         | 2025/03/06 08:41:42 Worker 3: processing task 2: 4.000000 + 2.000000 (200 ms)
+agent-1         | 2025/03/06 08:41:43 Worker 3: successfully completed task 2 with result 6.000000
+```
+5. Кайфуем
+
 ## Запросы:
 
 ```bash
