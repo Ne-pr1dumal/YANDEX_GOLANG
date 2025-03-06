@@ -1,0 +1,41 @@
+services:
+  orchestrator:
+    build:
+      context: .
+      dockerfile: cmd/orchestrator_start/Dockerfile
+    environment:
+      - PORT=8080
+      - TIME_ADDITION_MS=200
+      - TIME_SUBTRACTION_MS=200
+      - TIME_MULTIPLICATIONS_MS=300
+      - TIME_DIVISIONS_MS=400
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/expressions"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  agent:
+    build:
+      context: .
+      dockerfile: cmd/agent_start/Dockerfile
+    environment:
+      - COMPUTING_POWER=4
+      - ORCHESTRATOR_URL=http://orchestrator:8080
+    depends_on:
+      orchestrator:
+        condition: service_healthy
+
+  example-request:
+    image: curlimages/curl
+    depends_on:
+      - orchestrator
+    command: 
+      - sh
+      - -c
+      - |
+        sleep 5
+        echo "Sending request..."
+        curl -X POST -H "Content-Type: application/json" -d '{"expression":"2+2*2"}' http://orchestrator:8080/api/v1/calculate
