@@ -39,7 +39,7 @@ Cервис для вычисления арифметических выраж�
 
 1. Склонируйте проект с GitHub
     ```bash
-    git clone https://github.com/Ne-pr1dumal/Calculation-Service-Yandex
+    git clone https://github.com/Ne-pr1dumal/YANDEX_GOLANG
     ```
 2. Перейдите в головную папку с проектом и запустите проект
     ```bash
